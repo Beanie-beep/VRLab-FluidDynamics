@@ -15,7 +15,7 @@ public class HandheldTimer : MonoBehaviour
 
     public InputAction aButtonAction;
 
-    private XRGrabInteractable grabInteractable;
+    public XRGrabInteractable grabInteractable;
 
 
     private bool countStarted; // Flag to track whether the countdown has started
@@ -36,11 +36,6 @@ public class HandheldTimer : MonoBehaviour
     private void Awake()
     {
         
-
-        // Assuming you're using the Oculus Interaction profile
-        aButtonAction = new InputAction("AButton");
-        aButtonAction.AddBinding("<XRController>{RightHand}/buttonSouth");
-        aButtonAction.Enable();
     }
 
     private void Start()
@@ -65,8 +60,9 @@ public class HandheldTimer : MonoBehaviour
         if (countStarted)
         {
             time += Time.deltaTime;
-            Debug.Log(time);
-            text.text = "00:" + time + "s";
+            //Debug.Log(time);
+            //text.text = "00:" + time + "s
+            ShowTime();
             
             ballDropController.DropBall();
             
@@ -75,7 +71,7 @@ public class HandheldTimer : MonoBehaviour
         if(!countStarted)
         {
             
-            Debug.Log(time);
+            //Debug.Log(time);
         }
 
         if (aButtonAction.ReadValue<float>() > 0.5f && grabInteractable.isSelected)
@@ -97,5 +93,20 @@ public class HandheldTimer : MonoBehaviour
     public void ResetTimer()
     {
         time = 0f;
+        Debug.Log(time);
+        //text.text = "00:" + time + "s";
+        ShowTime();
+    }
+
+    private void ShowTime()
+    {
+        int minutes = Mathf.FloorToInt(time / 60);
+        int seconds = Mathf.FloorToInt(time % 60);
+        int milliseconds = Mathf.FloorToInt((time * 1000) % 1000);
+
+        string timeText = string.Format("{0:00}:{1:00}:{2:000}s", minutes, seconds, milliseconds / 10);
+
+
+        text.text = timeText;
     }
 }

@@ -49,8 +49,24 @@ public class BallDropController : MonoBehaviour
             dropBall = true;
             socketInteractor.socketActive = false;
             Debug.Log(socketInteractor.socketActive);
+
+            StartCoroutine(WaitForOneSecond());
+
             //ballRigidbody.isKinematic = true;  - this is physics
-            
+
         }
+    }
+
+    IEnumerator WaitForOneSecond()
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(1.0f);
+
+        // Code here will execute after waiting for 1 second
+        Debug.Log("One second has passed!");
+
+        socketInteractor.socketActive = true;
+        dropBall = false;
+        Debug.Log(socketInteractor.socketActive);
     }
 }
