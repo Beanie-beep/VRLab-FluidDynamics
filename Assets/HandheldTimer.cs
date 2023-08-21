@@ -16,7 +16,7 @@ public class HandheldTimer : MonoBehaviour
 
     public InputAction aButtonAction;
 
-    public XRGrabInteractable grabInteractable;
+    public XRGrabInteractable grabInteractable; //access stopwatch interactable
 
 
     private bool countStarted; // Flag to track whether the countdown has started
