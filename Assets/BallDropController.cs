@@ -7,7 +7,7 @@ public class BallDropController : MonoBehaviour
 {
     public XRSocketInteractor socketInteractor; // Reference to the XR Socket Interactor
     public Rigidbody ballRigidbody; // Reference to the ball's Rigidbody component
-    public Transform dropPoint; // The point where you want the ball to drop
+    public Transform dropPoint; // The point where you want the ball to fall
 
     private bool dropBall = false; // Flag to track if the ball is attached to the controller
 
