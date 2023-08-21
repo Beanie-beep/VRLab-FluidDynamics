@@ -6,12 +6,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class BallDropController : MonoBehaviour
 {
     public XRSocketInteractor socketInteractor; // Reference to the XR Socket Interactor
-    public Rigidbody ballRigidbody; // Reference to the ball's Rigidbody component
+    public Rigidbody AlumBall; // Reference to the ball's Rigidbody component
+    public Rigidbody CopperBall;
     public Transform dropPoint; // The point where you want the ball to fall
+
+    public float liquidDrag;
 
     private bool dropBall = false; // Flag to track if the ball is attached to the controller
 
-    public float speed = 2;
+    
 
     private void Start()
     {
@@ -23,23 +26,11 @@ public class BallDropController : MonoBehaviour
             return;
         }
 
-        // Make sure the ballRigidbody is not null
-        if (ballRigidbody == null)
-        {
-            Debug.LogError("Ball Rigidbody not assigned!");
-            enabled = false;
-            return;
-        }
+        
     }
-    /*
-    public void Update()
-    {
-        if (!dropBall)
-        {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        }
-    }
-    */
+    
+
+
 
 
     public void DropBall()
@@ -47,20 +38,30 @@ public class BallDropController : MonoBehaviour
         if (!dropBall)
         {
             dropBall = true;
+
+            AlumBall.drag +=  liquidDrag;
+            CopperBall.drag += liquidDrag;
+
             socketInteractor.socketActive = false;
             Debug.Log(socketInteractor.socketActive);
 
             StartCoroutine(WaitForOneSecond());
 
-            //ballRigidbody.isKinematic = true;  - this is physics
+            
 
+        }
+        else
+        {
+            // Reset dropBall flag and re-enable socket interactor immediately
+            dropBall = false;
+            socketInteractor.socketActive = true;
         }
     }
 
     IEnumerator WaitForOneSecond()
     {
         // Wait for 1 second
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(5.0f);
 
         // Code here will execute after waiting for 1 second
         Debug.Log("One second has passed!");
