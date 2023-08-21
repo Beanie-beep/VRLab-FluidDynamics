@@ -12,6 +12,7 @@ public class HandheldTimer : MonoBehaviour
     public TextMeshProUGUI text;
 
     public BallDropController ballDropController; // Reference to the BallDropController script
+    public BallDropController ballDropControllerG;
 
     public InputAction aButtonAction;
 
@@ -65,7 +66,8 @@ public class HandheldTimer : MonoBehaviour
             ShowTime();
             
             ballDropController.DropBall();
-            
+            ballDropControllerG.DropBall();
+
         }
 
         if(!countStarted)
@@ -104,7 +106,7 @@ public class HandheldTimer : MonoBehaviour
         int seconds = Mathf.FloorToInt(time % 60);
         int milliseconds = Mathf.FloorToInt((time * 1000) % 1000);
 
-        string timeText = string.Format("{0:00}:{1:00}:{2:000}s", minutes, seconds, milliseconds / 10);
+        string timeText = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds / 10);
 
 
         text.text = timeText;
